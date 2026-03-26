@@ -13,7 +13,7 @@ test("App form submission", async () => {
 
     //Type a valid email into the input
     await userEvent.type(emailInput, 'sigmaschool@gmail.com');
-    await userEvent.type(passwordInput, "abcabc") // valid password
+    await userEvent.type(passwordInput, "abc123") // valid password
 
     //check if button is disabled
     expect(submitButton.disabled).toBe(false);

@@ -8,10 +8,12 @@ test("App form submission", async () => {
 
     //get the email input and submit button
     const emailInput = screen.getByTestId("emailInput");
+    const passwordInput = screen.getByTestId("passwordInput")
     const submitButton = screen.getByTestId("submitButton");
 
     //Type a valid email into the input
     await userEvent.type(emailInput, 'sigmaschool@gmail.com');
+    await userEvent.type(passwordInput, "abc123") // valid password
 
     //check if button is disabled
     expect(submitButton.disabled).toBe(false);

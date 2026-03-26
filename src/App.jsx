@@ -1,25 +1,21 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Button, Container, Form } from 'react-bootstrap';
 
 export default function App() {
   const [email, setEmail] = useState('');
-  const [isFormValid, setIsFormValid] = useState(false);
+  const [password, setPassword] = useState('');
 
-  const checkFormValidity = () => {
-    const form = document.querySelector('form');
-    setIsFormValid(form.checkValidity());
-    //if email is valid, form.checkValidity will return 'true'
-  };
+  const isEmailValid = email.includes("@gmail.com");
 
-  useEffect(() => {
-    checkFormValidity();
-    // Check validity whenever the component mounts
-  }, [])
+  const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
+  const isPasswordValid = passwordRegex.test(password);
+
+  const isFormValid = isEmailValid && isPasswordValid;
 
   return (
     <Container className='my-5'>
       <h1>Form Submission</h1>
-      <Form className='my-4' onChange={checkFormValidity}>
+      <Form className='my-4'>
         <Form.Group className='mb-3' controlId='formBasicEmail'>
           <Form.Label>Email address</Form.Label>
           <Form.Control
@@ -29,6 +25,17 @@ export default function App() {
             onChange={(e) => setEmail(e.target.value)}
             required
             data-testid="emailInput"
+          />
+        </Form.Group>
+        <Form.Group className='mb-3' controlId='formBasicPassword'>
+          <Form.Label>Password</Form.Label>
+          <Form.Control
+            type='password'
+            placeholder='Enter password'
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            data-testid="passwordInput"
           />
         </Form.Group>
         <Button
